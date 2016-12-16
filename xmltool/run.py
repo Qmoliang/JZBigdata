@@ -19,26 +19,26 @@ class QuotesSpider(scrapy.Spider):
         pages = []
         f = open("input.txt", "r")
         line = f.readline().replace('\n', '')
-        print line
-        print '\n'
+        #print line
+        #print '\n'
         for filename in os.listdir(line):
             url = "file:///" + line.replace("%5C",'\\') + filename + "/GAB_ZIP_INDEX.xml"
-            print "--------------"
-            print url
-            print "--------------"
+            #print "--------------"
+            #print url
+            #print "--------------"
             page = scrapy.Request(url)
             pages.append(page)
 
             g = open("output.txt", "r")
             rout = g.readline().replace('\n', '')
             os.mkdir(rout+filename)
-            print rout+filename
+            #print rout+filename
             
-            print '\n\n\n\n\n'
+            #print '\n\n\n\n\n'
             g.close()
         f.close()
-        print pages
-        print '\n\n\n\n\n'
+        #print pages
+        #print '\n\n\n\n\n'
         return pages
 
 
@@ -115,29 +115,37 @@ class QuotesSpider(scrapy.Spider):
         #print '\n\n\n\n\n\n\n'
         g = open("input.txt", "r")
         rout = g.readline().replace('\n', '')
+        """
         print "--------------"
         print rout
         print "--------------"
+        """
         g.close()
         newres = response.url.replace("%5C",'\\')
+        """
         print "--------------"
         print newres
         print "--------------"
+        """
         stri = newres[len(rout)+8:len(newres)]
+        """
         print "--------------"
         print stri
         print "--------------"
+        """
         end = stri.find('GAB_ZIP_INDEX.xml')
         outputFileName = stri[0:end-1]
+        """
         print "--------------"
         print outputFileName
         print "--------------"
+        """
         na = rout + outputFileName + '/' + oldFName
         na = na.replace("%5C",'/')
         fp = open(na,"r+")
         newFp = file(route+'/' + outputFileName + '/' +oldFName[0:-4]+r'.csv',"a+")
-        print route
-        print '\n\n\n\n\n\n\n'
+        #print route
+        #print '\n\n\n\n\n\n\n'
         newFp.write(codecs.BOM_UTF8)
         for i in range(0, len(listed)-1):
             newFp.write(listed[i]+',')
